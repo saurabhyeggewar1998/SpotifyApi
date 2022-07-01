@@ -17,7 +17,7 @@ public class SpotifyApi {
 	String track;
 	@BeforeTest
 	public void getToken() {
-		token = "Bearer BQB0M64Kgjhc787m6KlOMidGVO0uDVA2hahFIuP-PKQw6fYMtO5Fq6kyVzdiuyQXAjkRGyzYwDN1sfZwy_Hq9C-8-Ps3Idx8n0GVuU4Wb-Lry7zYSQQ12sqytb7MOnfbGclvWNHE3Oe55NZB1W74YjVKBHvutvjgijMVLsScR1E_PT9HfrvdAum2jdrWFLySknkKWXSIBPzqlT44qn5NUDdlFLVPYoaKLyIXvhCbVOwZQv3MG-EJwtD9Z8M0OHcRXlJGUQNSYxrQgNaL9vlDMIKcrhgVT6JbaV1rdyGHzmDQSwJ0qo8Uh1O2Befr7h4-03QY6py8m7n5";
+		token = "Bearer BQCb97sJPc_9Ya9ovgTswYU10U2XgV8BTsVzR8fyTYd4ctQPGNRkUlTwaRYWhDmUa9U9LcvPGILnud3EoMC04pT3TgPfg6asOmN6ByS1Ovd_8SyvnbeqJXt_G6aJKPgPOCtXYzxfX5-7B7bOiUJVv0OtVAqEsBJ2OdvMgLRc4KREQj964iZNghQ7rOf18pKv_SZ9jvbpTjZ5cg20FKjqS54KJm7JWyaysM9gxTSlI-oUl91SzBKxDk_hob2UsdhpiohkuglE2Q_vvb7CEgVQryyNm8-X7uX-6y1q8JznoR6QMoW8ypWf4DBRAPPUF6xx90yiJm2FhypQ";
 		}
 	
 	@BeforeTest
@@ -170,17 +170,17 @@ response.then().assertThat().statusCode(200);
 
 	
 	} 
-	@Test
-	public void RemovePlaylistItem() {
-		Response response = RestAssured.given().contentType(ContentType.JSON).accept(ContentType.JSON)
-				.accept(ContentType.JSON)
-				.header("Authorization", token)
-				.body("{\"tracks\":[{\"uri\":\"spotify:track:0dnDTvdUco2UbaBjUtPxNS\"}]}")
-				.when()
-				.delete("https://api.spotify.com/v1/playlists/"+playlist_id+"/tracks");
-response.prettyPrint();
-response.then().assertThat().statusCode(200);
-	}
+//	@Test
+//	public void RemovePlaylistItem() {
+//		Response response = RestAssured.given().contentType(ContentType.JSON).accept(ContentType.JSON)
+//				.accept(ContentType.JSON)
+//				.header("Authorization", token)
+//				.body("{\"tracks\":[{\"uri\":\"spotify:track:0dnDTvdUco2UbaBjUtPxNS\"}]}")
+//				.when()
+//				.delete("https://api.spotify.com/v1/playlists/"+playlist_id+"/tracks");
+//response.prettyPrint();
+//response.then().assertThat().statusCode(200);
+//	}
 	@Test
 	public void TrackId() {
 		Response response = RestAssured.given().contentType(ContentType.JSON)
@@ -191,5 +191,46 @@ response.then().assertThat().statusCode(200);
 response.prettyPrint();
 response.then().assertThat().statusCode(200);
 		
+	}
+	@Test
+	public void TrackGet() {
+		Response response = RestAssured.given().contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.header("Authorization", token)
+				.when()
+				.get("https://api.spotify.com/v1/me");
+response.prettyPrint();
+response.then().assertThat().statusCode(200);
+	}
+	@Test
+	public void TrackAudioGet()
+	{
+		Response response = RestAssured.given().contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.header("Authorization", token)
+				.when()
+				.get("https://api.spotify.com/v1/audio-analysis/0dnDTvdUco2UbaBjUtPxNS");
+response.prettyPrint();
+response.then().assertThat().statusCode(200);
+	}
+	@Test
+	public void TrackAudioGetFeature() {
+		Response response = RestAssured.given().contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.header("Authorization", token)
+				.when()
+				.get("https://api.spotify.com/v1/audio-features");
+response.prettyPrint();
+response.then().assertThat().statusCode(200);
+	}
+	@Test
+	public void TrackAudioGetFeatureId() {
+		Response response = RestAssured.given().contentType(ContentType.JSON)
+				.accept(ContentType.JSON)
+				.header("Authorization", token)
+				.when()
+				.get("https://api.spotify.com/v1/audio-features/0dnDTvdUco2UbaBjUtPxNS");
+response.prettyPrint();
+response.then().assertThat().statusCode(200);
 	}
 }
